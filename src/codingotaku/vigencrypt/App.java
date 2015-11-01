@@ -8,12 +8,14 @@ public class App{
 
         public static void main(String[] args){
 
-                if(args.length != 1){
+                if(args.length!=2){
                         System.out.println("Error: Name of file not supplied");
                         System.exit(1);
                 }
 
-                String filename = args[0];
+                String option = args[0];
+                String filename = args[1];
+
 
                 System.out.println("Filename: "+filename);
             
@@ -22,7 +24,23 @@ public class App{
 
                 try{
                         in = new FileInputStream(filename);
-                        out = new FileOutputStream(filename+".vig");
+
+                        String outFilename = filename;
+
+                        boolean encrypt = true;
+
+                        if(option.equals("enc")){
+                                outFilename += ".vig";
+                                encrypt = true;
+                        }else if(option.equals("dec")){
+                                outFilename += ".giv";
+                                encrypt = false;
+                        }else{
+                                System.out.println("Error: Invalid option");
+                                System.exit(1);
+                        }
+                        
+                        out = new FileOutputStream(outFilename);
 
                         Console console = System.console();
 
@@ -33,7 +51,11 @@ public class App{
 
                         System.out.println("Enter password: ");
                         char[] password = console.readPassword();
-                        System.out.println("Beginning Encryption...");
+                        if(encrypt){
+                            System.out.println("Beginning Encryption...");
+                        }else{
+                            System.out.println("Beginning Decryption...");
+                        }
 
                         int inputCharCode;
 
@@ -48,7 +70,15 @@ public class App{
 
                                 if(characters.indexOf(ch) != -1){
                                         int inputCharValue = characters.indexOf(ch);
-                                        int modifiedCharValue = (inputCharValue + passwordCharValue)%characters.length();
+                                        int modifiedCharValue;
+                                        if(encrypt){
+                                            modifiedCharValue = (inputCharValue + passwordCharValue)%characters.length();
+                                        }else{
+                                            modifiedCharValue = (inputCharValue - passwordCharValue);
+                                            if(modifiedCharValue < 0){
+                                                    modifiedCharValue += characters.length();
+                                            }
+                                        }
 
                                         ch = characters.charAt(modifiedCharValue);
 
@@ -59,6 +89,12 @@ public class App{
                                 }
 
                                 out.write(ch);
+                        }
+
+                        if(encrypt){
+                            System.out.println("Encryption done!");
+                        }else{
+                            System.out.println("Decryption done!");
                         }
                 }catch(IOException ioexc){
                         System.out.println(ioexc.getMessage());
