@@ -1,5 +1,5 @@
 #Vigencrypt
 
-A very simple implementation of the Vigenere encryption.
+A very very simple implementation of the Vigenere encryption.
 
 
