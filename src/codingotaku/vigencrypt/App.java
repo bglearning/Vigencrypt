@@ -8,13 +8,20 @@ public class App{
 
         public static void main(String[] args){
 
-                if(args.length!=2){
-                        System.out.println("Error: Name of file not supplied");
+                if(args.length!=1 && args.length!=2){
+                        System.out.println("Error: Filename not supplied");
                         System.exit(1);
                 }
 
-                String option = args[0];
-                String filename = args[1];
+                String option = "";
+                String filename = "";
+                if(args.length == 1){
+                    option = "-e";
+                    filename = args[0];
+                }else{
+                    option = args[0];
+                    filename = args[1];
+                }
 
 
                 System.out.println("Filename: "+filename);
@@ -29,10 +36,10 @@ public class App{
 
                         boolean encrypt = true;
 
-                        if(option.equals("enc")){
+                        if(option.equals("-e")){
                                 outFilename += ".vig";
                                 encrypt = true;
-                        }else if(option.equals("dec")){
+                        }else if(option.equals("-d")){
                                 outFilename += ".giv";
                                 encrypt = false;
                         }else{
