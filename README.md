@@ -1,7 +1,7 @@
 #Vigencrypt
 
-A very very simple implementation of the Vigenere encryption.
-
+A very very simple implementation of the [ Vigenere encryption cipher ]( https://en.wikipedia.org/wiki/Vigen%C3%A8re_cipher
+                )
 ###Compilation
 
 Assuming the current working directory is the Vigencrypt root:
@@ -23,7 +23,7 @@ java codingotaku.vigencrypt.App -d "filename"
 ```
 
 ####Note
-The encrypte option is the default option. So, if the option is omitted, encryption is assumed.
+The encrypt option is the default option. So, if the option is omitted, encryption is assumed.
 
 
 
